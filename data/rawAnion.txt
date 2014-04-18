@@ -1,0 +1,45 @@
+Acetate	CH3COO -
+Borate	BO3 3-
+Bromate	BrO3 -
+Bromide	Br -
+Carbonate	CO3 2-
+Chlorate	ClO3 -
+Chloride	Cl -
+Chlorite	ClO2 -
+Chromate	CrO4 2-
+Cyanamide	CN2 2-
+Cyanide	CN -
+Dichromate	Cr2O7 2-
+Dihydrogen phosphate	H2PO 4-
+Ferricyanide	Fe(CN)6 3-
+Ferrocyanide	Fe(CN)6 4-
+Fluoride	F -
+Hydrogen carbonate	HCO 3-
+Hydrogen phosphate	HPO4 2-
+Hydrogen sulfate	HSO4 -
+Hydrogen sulfide	HS -
+Hydrogen sulfite	HSO3 -
+Hydride	H -
+Hydroxide	OH -
+Hypochlorite	ClO -
+Iodate	IO3 -
+Iodide	I -
+Nitrate	NO3 -
+Nitride	N 3-
+Nitrite	NO2 -
+Oxalate	C2O4 2-
+Oxide	O 2-
+Perchlorate	ClO4 -
+Permanganate	MnO4 -
+Peroxide	O2 2-
+Phosphate	PO4 3-
+Phosphide	P 3-
+Phosphite	PO3 3-
+Silicate	SiO4 4-
+Stannate	SnO3 2-
+Stannite	SnO2 2-
+Sulfate	SO4 2-
+Sulfide	S 2-
+Sulfite	SO3 2-
+Tartrate	C4H4O6 2-
+Thiocynate	SCN -
