@@ -42,13 +42,15 @@ package com.notulator
             //the cation/anion of this acid/base
 
             var cationElems:Array = [];
-            for(var elem in this.consitsOf)
+            for(var elem in this.consistsOf)
+
                 //If the element is not OH- or O2-, add it to the anion
                 if( elem != "OH" && elem != "O"){
                     //If there is more than one of the element/term, we multiply is accordingly
-                    if( this.consitsOf[elem] > 1 ) cationElems.push(elem + '*' + this.consitsOf[elem] );
+                    if( this.consistsOf[elem] > 1 ) cationElems.push(elem + '*' + this.consistsOf[elem] );
                     else cationElems.push(elem);
                 }
+            trace(cationElems);
             //Return the cation
             var cation = new ChemicalSubstance(cationElems);
             return cation;

@@ -27,7 +27,7 @@ package com.notulator
 
         public function acidAndBase(acid, base):String{
             //Products - Salt & Water
-            var salt = getSalt(acid,base);
+            var salt = this.getSalt(acid,base);
             var water = new ChemicalSubstance(["H*2", "O"]);
             var products = [salt, water];
 
@@ -71,6 +71,7 @@ package com.notulator
             var elemsInRight = [];
             for( var i=0;i<rightSide.length;i++  ){
                 var elemList = rightSide[i].listOfElems;
+                trace(rightSide[i].chemicalFormula);
 
                 for( var k=0;k<elemList.length;k++ ){
                     if( elemsInRight.indexOf(elemList[k]) == -1)
@@ -81,15 +82,24 @@ package com.notulator
 
             //Make sure that the 2 sides are equal inorder to balance it
             //Check that they have the same length, else return
-            if( elemsInLeft.length != elemsInRight.length ) return [];
+            if( elemsInLeft.length != elemsInRight.length ){
+                trace('Error! Left and Right do not have the same length');
+                trace('Left:' + elemsInLeft.length);
+                trace('Right:' + elemsInRight.length);
+                return [];
+            }
 
             //Loop through the left array and compare the corresponding elements
             //If there is one inconsistency, return
             var len = elemsInLeft.length;
             for( var i=0;i<len;i++ )
-                if(elemsInLeft[i] != elemsInRight[i]) return [];
-            
-
+                if(elemsInLeft[i] != elemsInRight[i]){
+                    trace('Error! Left and Right are not the same');
+                    trace('Left:' + elemsInLeft[i]);
+                    trace('Right:' + elemsInRight[i]);
+                    return [];
+                }
+        
             //Since the 2 arrays are the same, we only need one array from
             //here on to prevent confusion
             var elementArray = elemsInLeft;
@@ -121,7 +131,7 @@ package com.notulator
                 //Same story here
                 for( var j=0;j<rightSide.length;j++ ){
                     currentRow.push( -(rightSide[j].getNumOfElem(currentElem)) ) ;
-                   //trace( rightSide[j].chemicalFormula + " has " + rightSide[j].getNumOfElem(currentElem) + " of " + currentElem);
+                    //trace( rightSide[j].chemicalFormula + " has " + rightSide[j].getNumOfElem(currentElem) + " of " + currentElem);
                 }
 
                 //We add another colum of 0s to get a non-homogeneous equation
@@ -199,6 +209,7 @@ package com.notulator
         */ 
 
         public function getSalt(acid,base):ChemicalSubstance{
+            trace(base.cation.chemicalFormula);
             //We get the charges of the cation and anion
             var anionCharge = acid.anionCharge;
             var cationCharge =  base.cationCharge;
@@ -227,14 +238,13 @@ package com.notulator
         * Equation To String
         *
         * @param Array leftSide The left side of the equation
-        * @param Array rightSide The righ side of the equation
+        * @param Array rightSide The right side of the equation
         * @param Array coefficients The respective coefficients
-        * @return string The formatted equation
+        * @return string The final equation
         * 
         */ 
 
         public function eqnToString(leftSide, rightSide, coefficients):String{
-            var formattedEqn = "";
 
             //Split the coefficient array into left and right side
             var leftSideCoefficients = [];
@@ -249,34 +259,37 @@ package com.notulator
                 rightSideCoefficients.push(coefficients[correctedIndex]);
             }
 
-            //Loop through each term in the left side and format
-            len = leftSide.length;
+            
+            return formatEquation(leftSide,leftSideCoefficients)
+                + ' → '
+                + formatEquation(rightSide,rightSideCoefficients);
+        }
+
+        /** 
+        * Format Equation
+        *
+        * @param Array eqn The equation to format
+        * @param Array coefficients The respective coefficients
+        * @return string The formatted equation
+        * 
+        */
+
+        public function formatEquation(eqn,coefficients):String{
+            var formattedEqn = "";
+            var len = eqn.length;
+
             for( var i=0;i<len;i++ ){
-                if(leftSideCoefficients[i] == 1)
+                if(coefficients[i] == 1)
                     //If there is only one of the term, no need to display '1'
 
                     //If this is the first term, we dont need a '+' before it
-                    if(i == 0) formattedEqn += leftSide[i].chemicalFormula + ' ';
+                    if(i == 0) formattedEqn += eqn[i].chemicalFormula + ' ';
                     //Else, add a '+'
-                    else formattedEqn += '+ ' + leftSide[i].chemicalFormula;
+                    else formattedEqn += '+ ' + eqn[i].chemicalFormula;
                 else
                     //Else, display the number of terms and the term itself
-                    if(i == 0) formattedEqn += leftSideCoefficients[i] + leftSide[i].chemicalFormula + ' ';
-                    else formattedEqn += '+ ' + leftSideCoefficients[i] + leftSide[i].chemicalFormula;
-            }
-
-            //Add the arrow
-            formattedEqn += ' → ';
-
-            //Same story for the right side
-            len = rightSide.length;
-            for( var i=0;i<len;i++ ){
-                if(rightSideCoefficients[i] == 1)
-                    if(i == 0) formattedEqn += rightSide[i].chemicalFormula + ' ';
-                    else formattedEqn += '+ ' + rightSide[i].chemicalFormula;
-                else
-                    if(i == 0) formattedEqn += rightSideCoefficients[i] + rightSide[i].chemicalFormula + ' ';
-                    else formattedEqn += '+ ' + rightSideCoefficients[i] + rightSide[i].chemicalFormula;
+                    if(i == 0) formattedEqn += coefficients[i] + ' ' + eqn[i].chemicalFormula + ' ';
+                    else formattedEqn += '+ ' + coefficients[i] + ' ' + eqn[i].chemicalFormula;
             }
 
             return formattedEqn;

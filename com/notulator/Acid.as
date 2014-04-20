@@ -42,11 +42,11 @@ package com.notulator
             //the cation/anion of this acid/base
 
             var anionElems:Array = [];
-            for(var elem:String in super.consitsOf){
+            for(var elem:String in super.consistsOf){
                 //If the element is not H+, add it to the anion
                 if(elem != "H")
                     //If there is more than one of the element/term, we multiply is accordingly
-                    if( this.consitsOf[elem] > 1 ) anionElems.push(elem + '*' + this.consitsOf[elem] );
+                    if( this.consistsOf[elem] > 1 ) anionElems.push(elem + '*' + this.consistsOf[elem] );
                     else anionElems.push(elem);
             }
         	
